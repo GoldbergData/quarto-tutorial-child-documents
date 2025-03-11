@@ -1,6 +1,6 @@
 # Time Series Final Project (Example with Quarto Child Documents)
 
-Welcome to this example repository demonstrating how to use **Git**, **GitHub**, and **Quarto** child documents to collaborate on a time series project. This structure is inspired by the UChicago Time Series final project instructions, but you can adapt it to any similar project or course.
+Welcome to this example repository demonstrating how to use **Git**, **GitHub**, and **Quarto** child documents to collaborate on a time series project. This structure is inspired by the UChicago Time Series final project instructions, but you can adapt it to any similar project or course. You can view an example document [here](https://goldbergdata.github.io/quarto-tutorial-child-documents/).
 
 ## Project Overview
 
