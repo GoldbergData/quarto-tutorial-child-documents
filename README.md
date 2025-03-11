@@ -50,7 +50,7 @@ By splitting the project into multiple files, team members can work in parallel 
 - **Regular commits**: Commit your work often to ensure your progress is saved and shared.
 - **Review each other’s code**: Provide feedback through GitHub’s review features.
 
-## Project Outline (Inspired by UChicago Time Series)
+## Project Outline
 
 1. **Problem Definition & Audience**
 2. **Data Exploration**
