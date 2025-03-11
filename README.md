@@ -144,4 +144,4 @@ Each time you push updates using render.sh, GitHub Pages will automatically upda
 
 ## Contact
 
-If you have questions or suggestions for improvement, feel free to email me. Good luck with your time series project!
+If you have questions or suggestions for improvement, feel free to open an issue or email me.
