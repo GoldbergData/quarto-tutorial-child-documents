@@ -19,13 +19,18 @@ quarto render index.qmd --to pdf
 # Ensure docs/ folder exists
 mkdir -p $OUTPUT_DIR
 
+echo "Cleaning up previous output in $OUTPUT_DIR/..."
+rm -rf $OUTPUT_DIR/index.html
+rm -rf $OUTPUT_DIR/index.pdf
+rm -rf $OUTPUT_DIR/index_files  # Remove any existing index_files/
+
 echo "Moving output files to $OUTPUT_DIR/..."
 
 # Move rendered files into docs/
 mv index.html $OUTPUT_DIR/
 mv index.pdf $OUTPUT_DIR/
 
-# Move supporting files (plots, images, etc.) into docs/
+# Move supporting files (plots, images, etc.) into docs/, ensuring a clean move
 if [ -d "index_files" ]; then
     mv index_files $OUTPUT_DIR/
 fi
