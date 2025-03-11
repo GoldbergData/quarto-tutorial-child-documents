@@ -1,0 +1,46 @@
+---
+# No specific front matter needed unless customizing
+---
+
+## Model Overview
+
+The ETS (Error, Trend, Seasonal) model decomposes a time series into its components directly. It is particularly useful when the data exhibits clear level, trend, and seasonal components. ETS models automatically select the best combination of error, trend, and seasonality structures.
+
+## Model Fitting
+
+We again use the built-in `AirPassengers` dataset. The ETS model is fitted using the `ets` function from the `forecast` package.
+
+```{r "Fit ETS"}
+library(forecast)
+library(ggplot2)
+
+ts_data <- AirPassengers
+fit_ets <- ets(ts_data)
+summary(fit_ets)
+```
+
+## Model Evaluation
+
+We evaluate the ETS model by forecasting the next 12 months and plotting the forecast. This visualization shows how well the model captures the underlying patterns in the `AirPassengers` data.
+
+```{r, "Forecast ETS"}
+fc_ets <- forecast(fit_ets, h = 12)
+autoplot(fc_ets) + ggtitle("ETS Forecast for AirPassengers (Next 12 Months)")
+```
+
+### RMSE and MAPE Metrics
+
+We calculate the Root Mean Squared Error (RMSE) and Mean Absolute Percentage Error (MAPE) using the accuracy function to evaluate the model’s performance on the training set.
+
+```{r, "ETS RMSE"}
+acc_ets <- accuracy(fit_ets)
+acc_ets_table <- data.frame(
+  Metric = c("RMSE", "MAPE"),
+  Value = c(acc_ets[1, "RMSE"], acc_ets[1, "MAPE"])
+)
+knitr::kable(acc_ets_table, caption = "ETS Model Performance Metrics")
+```
+
+Evaluation Summary:
+- ETS provides an alternative perspective to ARIMA, particularly when dealing with multiplicative seasonal effects.
+- Accuracy measures and visual inspection aid in comparing ETS with other models.

@@ -1,0 +1,45 @@
+---
+# No specific front matter needed unless customizing
+---
+
+## Model Overview
+
+TBATS (Trigonometric, Box-Cox transformation, ARMA errors, Trend, and Seasonal components) is designed to handle complex seasonal patterns and non-linear trends. It is especially useful for data with multiple seasonal periods or subtle non-linear behaviors.
+
+## Model Fitting
+
+For this analysis, we use the built-in `co2` dataset, which records atmospheric CO2 concentrations. We fit a TBATS model using the `tbats` function from the `forecast` package.
+
+```{r, "Fit TBATS"}
+library(forecast)
+library(ggplot2)
+
+ts_data <- AirPassengers
+fit_tbats <- tbats(ts_data)
+```
+
+## Model Evaluation
+
+We evaluate the TBATS model by forecasting the next 12 months and plotting the forecast. This visualization shows how well the model captures the underlying patterns in the `AirPassengers` data.
+
+```{r, "Forecast TBATS"}
+fc_tbats <- forecast(fit_tbats, h = 12)
+autoplot(fc_tbats) + ggtitle("TBATS 12-Month Forecast")
+```
+
+### RMSE and MAPE Metrics
+
+We calculate the Root Mean Squared Error (RMSE) and Mean Absolute Percentage Error (MAPE) using the accuracy function to evaluate the model’s performance on the training set.
+
+```{r, "TBATS RMSE"}
+acc_tbats <- accuracy(fit_tbats)
+acc_tbats_table <- data.frame(
+  Metric = c("RMSE", "MAPE"),
+  Value = c(acc_tbats[1, "RMSE"], acc_tbats[1, "MAPE"])
+)
+knitr::kable(acc_tbats_table, caption = "TBATS Model Performance Metrics")
+```
+
+Evaluation Summary:
+- TBATS summary provides insights into the transformation and seasonal components used.
+- Forecast visualization aids in assessing the model’s predictive performance.

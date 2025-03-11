@@ -1,0 +1,66 @@
+---
+# No specific front matter needed unless customizing
+---
+
+# Exploratory Data Analysis (EDA)
+
+```{r, "EDA"}
+library(ggplot2)
+library(forecast)
+
+ts_data <- AirPassengers
+
+# The data is a monthly time series of international airline passengers from 1949 to 1960.
+# Let's explore basic properties.
+
+# Convert to a standard ts object (it already is, but just reaffirming)
+ts_data <- as.ts(ts_data)
+
+start_year <- start(ts_data)[1]
+end_year   <- end(ts_data)[1]
+n_obs      <- length(ts_data)
+
+cat("This dataset starts in", start_year, "and ends in", end_year, 
+    "with", n_obs, "monthly observations.\n")
+
+# Basic summary
+summary(ts_data)
+```
+
+## Raw Time Series Plot
+
+```{r, "Plot Raw Time Series Plot"}
+# Create a data frame for ggplot
+df <- data.frame(
+  date = seq(as.Date("1949-01-01"), as.Date("1960-12-01"), by = "month"),
+  passengers = as.numeric(ts_data)
+)
+
+# Plot the time series using ggplot2
+ggplot(df, aes(x = date, y = passengers)) +
+  geom_line(color = "blue") +
+  labs(
+    title = "AirPassengers: Monthly Totals (1949-1960)",
+    x = "Year",
+    y = "Passengers (1000s)"
+  ) +
+  theme_minimal()
+```
+
+## Time Series Decomposition
+
+```{r, "Time Series Decomposition"}
+# Decompose the time series using classical multiplicative decomposition
+decomp_data <- decompose(ts_data, type = "multiplicative")
+
+# Plot the decomposition using ggplot2 (via autoplot from the forecast package)
+autoplot(decomp_data) +
+  ggtitle("Decomposition of AirPassengers Time Series") +
+  theme_minimal()
+```
+
+Observations from EDA:
+- The number of passengers generally increases over time, indicating a growing trend.
+- There is a clear seasonal pattern (peaks in mid-year).
+- The variance grows over time, hinting at non-stationarity.
+- The multiplicative decomposition visually shows strong seasonality and an upward trend.

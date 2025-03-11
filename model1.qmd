@@ -1,0 +1,46 @@
+---
+# No specific front matter needed unless customizing
+---
+
+## Model Overview
+
+ARIMA (AutoRegressive Integrated Moving Average) is used for time series forecasting by combining autoregression, differencing, and moving average components. It is particularly effective for data with trends and seasonality, and the `auto.arima` function automatically selects the best model parameters based on criteria like AICc.
+
+## Model Fitting
+
+In this section, we use the built-in `AirPassengers` dataset. We fit an ARIMA model using the `auto.arima` function from the `forecast` package.
+
+```{r, "Fit auto ARIMA"}
+library(forecast)
+library(ggplot2)
+
+ts_data <- AirPassengers
+fit_arima <- auto.arima(ts_data, seasonal = TRUE, stepwise = FALSE, approximation = FALSE)
+summary(fit_arima)
+```
+
+## Model Evaluation
+
+We evaluate the ARIMA model by forecasting the next 12 months and visualizing the results. This visualization shows how well the model captures the underlying patterns in the `AirPassengers` data.
+
+```{r, "Forecast ARIMA"}
+fc_arima <- forecast(fit_arima, h = 12)
+autoplot(fc_arima) + ggtitle("ARIMA Forecast for AirPassengers (Next 12 Months)")
+```
+
+### RMSE and MAPE Metrics
+
+We calculate the Root Mean Squared Error (RMSE) and Mean Absolute Percentage Error (MAPE) using the accuracy function to evaluate the model’s performance on the training set.
+
+```{r, "ARIMA RMSE"}
+acc_arima <- accuracy(fit_arima)
+acc_arima_table <- data.frame(
+  Metric = c("RMSE", "MAPE"),
+  Value = c(acc_arima[1, "RMSE"], acc_arima[1, "MAPE"])
+)
+knitr::kable(acc_arima_table, caption = "ARIMA Model Performance Metrics")
+```
+
+Evaluation Summary:
+- Model selection is based on AICc and diagnostic checks.
+- Further residual analysis and out-of-sample validation can be used to refine the model.
