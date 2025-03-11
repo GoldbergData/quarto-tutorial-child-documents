@@ -142,17 +142,6 @@ Each time you push updates using render.sh, GitHub Pages will automatically upda
 - **Regular commits**: Commit your work often to ensure your progress is saved and shared.
 - **Review each other’s code**: Provide feedback through GitHub’s review features.
 
-## Project Outline
-
-1. **Problem Definition & Audience**
-2. **Data Exploration**
-3. **Modeling Approaches**
-4. **Model Selection & Validation**
-5. **Results & Discussion**
-6. **Conclusions & Future Work**
-
-Explore the Quarto files (`.qmd`) to see how we separate each section into different documents, then render them all into one final output.
-
 ## Contact
 
 If you have questions or suggestions for improvement, feel free to email me. Good luck with your time series project!
